@@ -2,25 +2,16 @@ package create
 
 import (
 	"fmt"
-	"mapdb/mapdb.map.definition"
-	"strings"
 )
 
-func IsValidCreateMapSentence(sentence string) bool {
-	isValid := false
-
-	sentenceReduced := sentence
-	sentenceReduced = removeSemicolon(sentenceReduced)
-	sentenceReduced = replaceBlankSpaceByDelimiter(sentenceReduced)
-
-	sentenceArray := strings.Split(sentenceReduced, definition.DELIMITER_SENTENCE)
-
-	isValid = isValidSentenceLen(sentenceArray)
-	isValid = areValidSpecialWords(sentenceArray, isValid)
-	isValid = areValidDefinitionWords(sentenceArray, isValid)
-
-	fmt.Println(sentenceArray)
-	fmt.Println(len(sentenceArray))
-	fmt.Println(isValid)
-	return isValid
+func CreateMap(fullDataPath string, mapName string) (bool, error) {
+	_, errCreateFolder := createFolderInDisk(fullDataPath, mapName)
+	if errCreateFolder != nil {
+		return false, fmt.Errorf("Error creating folder for map: %w", errCreateFolder)
+	}
+	_, errDictionary := createOrUpdateStructureDictionary(fullDataPath, mapName, "MAP")
+	if errDictionary != nil {
+		return false, fmt.Errorf("Error creating or update map dictionary for map: %w", errDictionary)
+	}
+	return true, nil
 }
