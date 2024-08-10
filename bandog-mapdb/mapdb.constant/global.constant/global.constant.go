@@ -1,4 +1,4 @@
-package definition
+package GConstant
 
 const (
 	DELIMITER_SENTENCE        = " "

@@ -11,6 +11,7 @@ import (
 )
 
 const ENCRYPT_KEY = "a1s2d3f4a1s2d3f4"
+const STRUCTURE_DICTIONARY = "STRUCTURE_DICTIONARY"
 
 func createFolderInDisk(fullDataPath string, folderName string) (string, error) {
 	encryptFolderName, errEncrypt := encrypt.Encrypt([]byte(folderName))
@@ -27,7 +28,7 @@ func createFolderInDisk(fullDataPath string, folderName string) (string, error) 
 }
 
 func createOrUpdateStructureDictionary(fullDataPath string, structureName string, structureType string) (string, error) {
-	encryptStructureDictionary, errEncryptDictionary := encrypt.Encrypt([]byte("STRUCTURE_DICTIONARY"))
+	encryptStructureDictionary, errEncryptDictionary := encrypt.Encrypt([]byte(STRUCTURE_DICTIONARY))
 	encryptStructureName, errEncrypt := encrypt.Encrypt([]byte(structureName))
 	encryptStructureType, errEncryptType := encrypt.Encrypt([]byte(structureType))
 	pathWithStructureDictionary := filepath.Join(fullDataPath, encryptStructureDictionary)

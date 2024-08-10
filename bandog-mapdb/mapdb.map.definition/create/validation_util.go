@@ -1,8 +1,6 @@
 package create
 
 import (
-	"mapdb/mapdb.map.definition"
-	"regexp"
 	"strings"
 )
 
@@ -13,16 +11,6 @@ func arrayContains(lista []string, elemento string) bool {
 		}
 	}
 	return false
-}
-
-func removeSemicolon(text string) string {
-	regex := regexp.MustCompile(definition.REGEX_REMOVE_SEMICOLON)
-	return regex.ReplaceAllString(text, definition.NO_SPACE)
-}
-
-func replaceBlankSpaceByDelimiter(text string) string {
-	regex := regexp.MustCompile(definition.REGEX_REMOVE_BLANK_SPACES)
-	return regex.ReplaceAllString(text, definition.DELIMITER_SENTENCE)
 }
 
 func isValidSentenceLen(sentenceArray []string) bool {
@@ -54,4 +42,13 @@ func areValidDefinitionWords(sentenceArray []string, prevValid bool) bool {
 	} else {
 		return false
 	}
+}
+
+func findCreateMapName(lista []string) string {
+	for i, item := range lista {
+		if strings.ToUpper(item) == NAME {
+			return lista[i+1]
+		}
+	}
+	return ""
 }
